@@ -1,6 +1,6 @@
 package sample;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by belikov.a on 12.01.2017.
@@ -11,8 +11,15 @@ public class CheckNode {
     private String section;
     private String product;
     private double price;
-    private Date purchaseDate;
+    private LocalDate purchaseDate;
     private int transaction;
+
+    @Override
+    public String toString(){
+        String string;
+        string =  market+"::"+section+"::"+product+"::"+price+"::"+purchaseDate+"::"+transaction;
+        return string;
+    }
 
     public CheckNode(int transaction){
         if(transaction == 0) {
@@ -41,7 +48,7 @@ public class CheckNode {
         this.price = price;
     }
 
-    public void setPurchaseDate(Date purchaseDate){
+    public void setPurchaseDate(LocalDate purchaseDate){
         this.purchaseDate = purchaseDate;
     }
 
@@ -65,7 +72,7 @@ public class CheckNode {
         return this.price;
     }
 
-    public Date getPurchaseDate(){
+    public LocalDate getPurchaseDate(){
         return this.purchaseDate;
     }
 
