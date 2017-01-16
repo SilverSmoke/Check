@@ -1,12 +1,10 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputEvent;
 
 import java.time.LocalDate;
 
@@ -38,18 +36,34 @@ public class Controller {
         price.addEventHandler(Event.ANY, new EventHandler<Event>() {
             @Override
             public void handle(Event event) {
-                System.out.println(event.getEventType().getName());
-                if(event.getEventType().getName().equals("KEY_RELEASED")){
-                    System.out.println(event.getEventType().getName());
-                    try{
-                        calcSum();
-                    }catch (Exception e){
-                        System.out.println("e");
-                        price.setText(price.getText().substring(0, price.getText().length()-1));
-                    }
-                }
+                handlerField(event);
             }
         });
+
+        number.addEventHandler(Event.ANY, new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+                handlerField(event);
+            }
+        });
+
+
+    }
+
+    public void handlerField(Event event){
+        System.out.println(event);
+        TextField field = (TextField) event.getSource();
+        System.out.println(field);
+        if(event.getEventType().getName().equals("KEY_RELEASED")){
+            System.out.println(event.getEventType().getName());
+            try{
+                calcSum();
+            }catch (Exception e){
+                System.out.println(e);
+                field.setText(field.getText().substring(0, field.getText().length()-1));
+                field.end();
+            }
+        }
     }
 
     @FXML
@@ -63,9 +77,7 @@ public class Controller {
     @FXML
     public void onClickMarket(){
         //System.out.println(market.getOnMouseClicked());
-        price.setText("0.0");
-        number.setText("1");
-        System.out.println(market.isFocused());
+        clearPosition();
     }
 
     @FXML
@@ -82,6 +94,7 @@ public class Controller {
             node.setSection(section.getText());
             node.setProduct(product.getText());
             node.setPrice(Double.parseDouble(price.getText()));
+            node.setNumber(Integer.parseInt(number.getText()));
             node.setPurchaseDate(purchaseDate.getValue());
             System.out.println(node);
         }catch (Exception e){

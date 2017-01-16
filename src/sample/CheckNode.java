@@ -11,6 +11,7 @@ public class CheckNode {
     private String section;
     private String product;
     private double price;
+    private int number;
     private LocalDate purchaseDate;
     private int transaction;
 
@@ -46,6 +47,10 @@ public class CheckNode {
 
     public void setPrice(Double price){
         this.price = price;
+    }
+
+    public void setNumber(int number){
+        this.number = number;
     }
 
     public void setPurchaseDate(LocalDate purchaseDate){
