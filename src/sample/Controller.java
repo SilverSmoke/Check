@@ -97,6 +97,7 @@ public class Controller {
             node.setNumber(Integer.parseInt(number.getText()));
             node.setPurchaseDate(purchaseDate.getValue());
             System.out.println(node);
+            node.addInBase();
         }catch (Exception e){
             System.out.println("Не установлена цена!");
         }
