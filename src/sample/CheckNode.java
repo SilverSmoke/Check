@@ -91,7 +91,7 @@ public class CheckNode {
         String product = this.product;
         Double price = this.price;
         //managerDB.updateDB("INSERT INTO  `checkDB`.`test` (`id` ,`market` ,`section` ,`product` ,`price` ,`time`)VALUES (NULL , `market`, `selection`, `product`, `price`, UNIX_TIMESTAMP( )");
-        managerDB.updateDB("INSERT INTO `checkDB`.`test` (`id`, `market`, `section`, `product`, `price`, `time`) VALUES (NULL, '" + market + "', '" + section + "', '" + product + "', '" + price + "', UNIX_TIMESTAMP());");
+        managerDB.updateDB("INSERT INTO `checkDB`.`test` (`id`, `market`, `section`, `product`, `price`, `time`) VALUES (NULL, '" + this.market + "', '" + section + "', '" + product + "', '" + price + "', UNIX_TIMESTAMP());");
     }
 
     private void extractOfBase(){
