@@ -23,10 +23,10 @@ public class DataBaseManager {
 
     }
 
-    public ResultSet getResult(String query){
+    public static ResultSet getResult(String query){
         try{
 
-            if(connect != null) {
+            if(connect == null) {
                 connect = DriverManager.getConnection(urlDB, user, pass);
             }
 
@@ -58,13 +58,20 @@ public class DataBaseManager {
 
         }catch(Exception sqlEx) {
             sqlEx.printStackTrace();
+        }finally {
+            try{
+                connect.close();
+                statement.close();
+
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
         }
     }
 
-    /*protected void finalize(){
-        try{connect.close();}catch(Exception ex){}
-        try{statement.close();}catch(Exception ex){}
-        try{result.close();}catch(Exception ex){}
-        System.out.println("OK");
-    }*/
+    protected void finalize(){
+        try{connect.close();}catch(Exception ex){ex.printStackTrace();}
+        try{statement.close();}catch(Exception ex){ex.printStackTrace();}
+        try{result.close();}catch(Exception ex){ex.printStackTrace();}
+    }
 }
