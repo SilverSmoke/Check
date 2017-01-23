@@ -1,5 +1,6 @@
 package sample;
 
+<<<<<<< 079830fe4c89b7d4bc8214213a2274abdc8386c2
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -260,4 +261,7 @@ public class Controller {
         }
         return setName;
     }
+=======
+public class Controller {
+>>>>>>> bed
 }
