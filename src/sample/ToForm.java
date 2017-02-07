@@ -15,7 +15,7 @@ public class ToForm {
     /*@FXML
     private static TextArea screen;*/
 
-    public static void isByDay(ResultSet resultSet, TextArea screen){
+    public static void groupByDay(ResultSet resultSet, TextArea screen){
 
         Double sumDay = .0;
         Double sum = .0;
@@ -96,7 +96,7 @@ public class ToForm {
 
     }
 
-    public static void isByMont(ResultSet resultSet, TextArea screen){
+    public static void groupByMont(ResultSet resultSet, TextArea screen){
 
         Double sumMonth = .0;
         Double sum = .0;
@@ -131,19 +131,19 @@ public class ToForm {
 
                 String string = resultSet.getString(1);
 
-                string += "\t\t";
+                string += addSpace(resultSet.getString(1), 10) + "\t\t";
 
                 string += resultSet.getString(2);
 
-                string += "\t\t";
+                string += addSpace(resultSet.getString(2), 20) + "\t\t";
 
                 string += resultSet.getString(3);
 
-                string += "\t\t";
+                string += addSpace(resultSet.getString(3), 20) + "\t\t";
 
                 string += resultSet.getString(4);
 
-                string += "\t\t";
+                string += addSpace(resultSet.getString(4), 20) + "\t\t";
 
                 string += resultSet.getString(5);
 
@@ -174,6 +174,22 @@ public class ToForm {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    private static String addSpace(String string, int col){
+
+
+
+        col = (col - string.length())/4;
+        System.out.println(string);
+        string = "";
+
+        for(int i = 0; i < col; i++){
+            string += "\t";
+        }
+
+        return string;
 
     }
 

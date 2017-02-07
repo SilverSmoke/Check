@@ -58,6 +58,8 @@ public class Controller {
     @FXML
     public void initialize(){
 
+        screen.setEditable(false);
+
         marketSet = setName("market");
 
         sectionSet = setName("section");
@@ -341,9 +343,9 @@ public class Controller {
         screen.clear();
 
         if(byDay.isSelected()){
-            ToForm.isByDay(resultSet, screen);
+            ToForm.groupByDay(resultSet, screen);
         }else if(byMonths.isSelected()) {
-            ToForm.isByMont(resultSet, screen);
+            ToForm.groupByMont(resultSet, screen);
         }else{
 
             try {
