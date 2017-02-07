@@ -340,60 +340,68 @@ public class Controller {
 
         screen.clear();
 
-                    try {
+        if(byDay.isSelected()){
+            ToForm.isByDay(resultSet, screen);
+        }else if(byMonths.isSelected()) {
+            ToForm.isByMont(resultSet, screen);
+        }else{
 
-                        while (resultSet.next()) {
+            try {
 
-                            //if ((byMarket.isSelected()) && (resultSet.getString(2).equals(sm))) {
+                while (resultSet.next()) {
 
-
-                                                String string = resultSet.getString(1);
-
-                                                string += "\t\t";
-
-                                                string += resultSet.getString(2);
-
-                                                string += "\t\t";
-
-                                                string += resultSet.getString(3);
-
-                                                string += "\t\t";
-
-                                                string += resultSet.getString(4);
-
-                                                string += "\t\t";
-
-                                                string += resultSet.getString(5);
-
-                                                string += "\t\t";
-
-                                                string += LocalDate.ofEpochDay(resultSet.getLong(6) / 86400);
-
-                                                    sumPrice += Double.parseDouble(resultSet.getString(5));
-
-                                                screen.appendText(string + "\n");
-
-                                            }
-                                        //}
-
-                                        resultSet.beforeFirst();
+                    //if ((byMarket.isSelected()) && (resultSet.getString(2).equals(sm))) {
 
 
-                                        screen.appendText("=============================================================================================" +
+                    String string = resultSet.getString(1);
 
-                                                "\n\t\t\t\t\t\t\t\t\t\tИтог:\t" + sumPrice + "\n");
+                    string += "\t\t";
+
+                    string += resultSet.getString(2);
+
+                    string += "\t\t";
+
+                    string += resultSet.getString(3);
+
+                    string += "\t\t";
+
+                    string += resultSet.getString(4);
+
+                    string += "\t\t";
+
+                    string += resultSet.getString(5);
+
+                    string += "\t\t";
+
+                    string += LocalDate.ofEpochDay(resultSet.getLong(6) / 86400);
+
+                    sumPrice += Double.parseDouble(resultSet.getString(5));
+
+                    screen.appendText(string + "\n");
+
+                }
+                //}
+
+                resultSet.beforeFirst();
 
 
-                                        sumPrice = .0;
+                screen.appendText("=============================================================================================" +
 
-                    }catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                        "\n\t\t\t\t\t\t\t\t\t\tИтог:\t" + sumPrice + "\n");
 
-                    intervalStart.setValue(LocalDate.now());
 
-                    intervalEnd.setValue(LocalDate.now());
+                sumPrice = .0;
+
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
+        }
+
+        intervalStart.setValue(LocalDate.now());
+
+        intervalEnd.setValue(LocalDate.now());
+
+    }
 
     public void changeForTime(MouseEvent mouseEvent) {
 

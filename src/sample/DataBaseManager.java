@@ -32,11 +32,13 @@ public class DataBaseManager {
 
             result = statement.executeQuery(query);
 
-        }catch(SQLException sqlEx){
+
+
+        }catch(SQLException sqlEx) {
             sqlEx.printStackTrace();
-        }finally {
-            return result;
         }
+
+        return result;
     }
 
     public void updateDB(String query){
