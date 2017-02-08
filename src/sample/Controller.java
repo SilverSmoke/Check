@@ -347,6 +347,7 @@ public class Controller {
         }else if(byMonths.isSelected()) {
             ToForm.groupByMont(resultSet, screen);
         }else{
+            ToForm.groupFree(resultSet, screen);
 
             try {
 

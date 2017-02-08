@@ -15,6 +15,31 @@ public class ToForm {
     /*@FXML
     private static TextArea screen;*/
 
+
+    public static void groupFree(ResultSet resultSet, TextArea screen){
+
+        Double sum = .0;
+
+        try {
+
+            while(resultSet.next()){
+
+                sum += Double.parseDouble(resultSet.getString(5));
+
+                screen.appendText(outString(resultSet) + "\n");
+
+            }
+
+            screen.appendText("=============================================================================================" +
+
+                    "\n\t\t\t\t\t\t\t\t\t\tОбщий итог:\t" + sum + "\n");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static void groupByDay(ResultSet resultSet, TextArea screen){
 
         Double sumDay = .0;
@@ -46,39 +71,13 @@ public class ToForm {
                     day = LocalDate.ofEpochDay(resultSet.getLong(6) / 86400).getDayOfYear();
                 }
 
-                //int day = LocalDate.ofEpochDay(resultSet.getLong(6) / 86400).getDayOfMonth();
-
-                String string = resultSet.getString(1);
-
-                string += "\t\t";
-
-                string += resultSet.getString(2);
-
-                string += "\t\t";
-
-                string += resultSet.getString(3);
-
-                string += "\t\t";
-
-                string += resultSet.getString(4);
-
-                string += "\t\t";
-
-                string += resultSet.getString(5);
-
-                string += "\t\t";
-
-                string += LocalDate.ofEpochDay(resultSet.getLong(6) / 86400);
-
                 sumDay += Double.parseDouble(resultSet.getString(5));
 
-                screen.appendText(string + "\n");
-
-                System.out.println(day+":::"+LocalDate.ofEpochDay(resultSet.getLong(6) / 86400).getDayOfYear());
+                screen.appendText(outString(resultSet) + "\n");
 
             }
 
-            if(sum == 0.0)sum = sumDay;
+            sum += sumDay;
 
             screen.appendText("=============================================================================================" +
 
@@ -127,33 +126,9 @@ public class ToForm {
                     month = LocalDate.ofEpochDay(resultSet.getLong(6) / 86400).getMonth();
                 }
 
-                //int day = LocalDate.ofEpochDay(resultSet.getLong(6) / 86400).getDayOfMonth();
-
-                String string = resultSet.getString(1);
-
-                string += addSpace(resultSet.getString(1), 10);
-
-                string += resultSet.getString(2);
-
-                string += addSpace(resultSet.getString(2), 20);
-
-                string += resultSet.getString(3);
-
-                string += addSpace(resultSet.getString(3), 20);
-
-                string += resultSet.getString(4);
-
-                string += addSpace(resultSet.getString(4), 20);
-
-                string += resultSet.getString(5);
-
-                string += "\t\t";
-
-                string += LocalDate.ofEpochDay(resultSet.getLong(6) / 86400);
+                screen.appendText(outString(resultSet) + "\n");
 
                 sumMonth += Double.parseDouble(resultSet.getString(5));
-
-                screen.appendText(string + "\n");
 
                 //System.out.println(day+":::"+LocalDate.ofEpochDay(resultSet.getLong(6) / 86400).getDayOfYear());
 
@@ -174,6 +149,43 @@ public class ToForm {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public static String outString(ResultSet resultSet){
+
+        String string = "";
+
+        try {
+            string = resultSet.getString(1);
+
+            string += addSpace(resultSet.getString(1), 10);
+
+            string += resultSet.getString(2);
+
+            string += addSpace(resultSet.getString(2), 20);
+
+            string += resultSet.getString(3);
+
+            string += addSpace(resultSet.getString(3), 20);
+
+            string += resultSet.getString(4);
+
+            string += addSpace(resultSet.getString(4), 20);
+
+            string += resultSet.getString(5);
+
+            string += "\t\t";
+
+            string += LocalDate.ofEpochDay(resultSet.getLong(6) / 86400);
+
+        }catch (SQLException e){
+
+            e.printStackTrace();
+
+        }
+
+        return string;
 
     }
 
