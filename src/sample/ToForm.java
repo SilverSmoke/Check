@@ -131,19 +131,19 @@ public class ToForm {
 
                 String string = resultSet.getString(1);
 
-                string += addSpace(resultSet.getString(1), 10) + "\t\t";
+                string += addSpace(resultSet.getString(1), 10);
 
                 string += resultSet.getString(2);
 
-                string += addSpace(resultSet.getString(2), 20) + "\t\t";
+                string += addSpace(resultSet.getString(2), 20);
 
                 string += resultSet.getString(3);
 
-                string += addSpace(resultSet.getString(3), 20) + "\t\t";
+                string += addSpace(resultSet.getString(3), 20);
 
                 string += resultSet.getString(4);
 
-                string += addSpace(resultSet.getString(4), 20) + "\t\t";
+                string += addSpace(resultSet.getString(4), 20);
 
                 string += resultSet.getString(5);
 
@@ -159,7 +159,7 @@ public class ToForm {
 
             }
 
-            if(sum == 0.0)sum = sumMonth;
+            sum += sumMonth;
 
             screen.appendText("=============================================================================================" +
 
@@ -179,14 +179,18 @@ public class ToForm {
 
     private static String addSpace(String string, int col){
 
+        int colDo = 0;
 
+        if(string.length()%4 > 0)colDo = 1;
 
-        col = (col - string.length())/4;
-        System.out.println(string);
+        colDo += (col - string.length())/4;
+
         string = "";
 
-        for(int i = 0; i < col; i++){
+        for(int i = 0; i < colDo; i++){
+
             string += "\t";
+
         }
 
         return string;
