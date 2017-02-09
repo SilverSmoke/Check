@@ -62,4 +62,8 @@ public class DataBaseManager {
             }
         }
     }
+
+    private static void createProfit(){
+
+    }
 }

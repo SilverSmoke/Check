@@ -24,6 +24,8 @@ public class ToForm {
 
             while(resultSet.next()){
 
+                if(resultSet.getString(3).equals("Прибыль"))continue;
+
                 sum += Double.parseDouble(resultSet.getString(5));
 
                 screen.appendText(outString(resultSet) + "\n");
@@ -55,6 +57,8 @@ public class ToForm {
 
 
             while(resultSet.next()){
+
+                if(resultSet.getString(3).equals("Прибыль"))continue;
 
                 if(LocalDate.ofEpochDay(resultSet.getLong(6) / 86400).getDayOfYear() != day){
 
@@ -95,7 +99,7 @@ public class ToForm {
 
     }
 
-    public static void groupByMont(ResultSet resultSet, TextArea screen){
+    public static void groupByMonth(ResultSet resultSet, TextArea screen){
 
         Double sumMonth = .0;
         Double sum = .0;
@@ -110,6 +114,10 @@ public class ToForm {
 
 
             while(resultSet.next()){
+
+                //System.out.println(Controller.balance);
+
+                if((resultSet.getString(3).equals("Прибыль")))continue;
 
                 if(LocalDate.ofEpochDay(resultSet.getLong(6) / 86400).getMonth() != month){
 
@@ -208,5 +216,4 @@ public class ToForm {
         return string;
 
     }
-
 }

@@ -28,6 +28,8 @@ public class Controller {
     @FXML
     public Button save;
     @FXML
+    public CheckBox balance;
+    @FXML
     private TextField market;
     @FXML
     private TextField section;
@@ -57,6 +59,8 @@ public class Controller {
 
     @FXML
     public void initialize(){
+
+        System.out.println(balance);
 
         screen.setEditable(false);
 
@@ -120,25 +124,12 @@ public class Controller {
 
 
     private void handlerProduct(KeyEvent event){
-        /*System.out.println(event.getEventType());
-        System.out.println(event.getCode().getName());
-        System.out.println(event.getCharacter());
-
-        System.out.println("===========================================");*/
-
-
-
-        /*Field[] fields = event.getClass().getDeclaredFields();
-
-        for(int i = 0; i < fields.length; i++){
-            System.out.println(fields[i]);
-        }*/
 
         TextField field = (TextField) event.getSource();
 
         ContextMenu menu = field.getContextMenu();
 
-        //System.out.println(field.getParent());
+        System.out.println(event);
 
         MenuItem item = menu.getItems().get(0);
 
@@ -165,24 +156,36 @@ public class Controller {
 
             if((field.equals(price))||(field.equals(number)))return;
 
+            String matchString = "";
+
             for (String s : hashSet) {
 
                 //System.out.println(s);
 
                 if ((s.toLowerCase().indexOf(field.getText().toLowerCase()) >= 0)&&(field.getText().length() > 1)) {
 
-                    item.setText(s);
+                    System.out.println("Открыть");
 
-                    item.setOnAction(new EventHandler<ActionEvent>() {
-                        public void handle(ActionEvent e) {
-                            field.setText(s);
-                        }
-                    });
-                    menu.show(field, Side.BOTTOM, 0, 0);
-                }/*else if(s.indexOf(field.getText()) < 0){
-                    item.setText("");
-                    menu.hide();
-                }*/
+                    matchString = s;
+
+
+                }
+            }
+            if(!matchString.equals("")){
+
+                item.setText(matchString);
+
+                String finalMatchString = matchString;
+                item.setOnAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent e) {
+                        field.setText(finalMatchString);
+                    }
+                });
+                menu.show(field, Side.BOTTOM, 0, 0);
+            }else if(!(matchString.toLowerCase().contains(field.getText().toLowerCase()))){
+                System.out.println("Закрыть");
+                item.setText("");
+                menu.hide();
             }
         }
     }
@@ -345,59 +348,9 @@ public class Controller {
         if(byDay.isSelected()){
             ToForm.groupByDay(resultSet, screen);
         }else if(byMonths.isSelected()) {
-            ToForm.groupByMont(resultSet, screen);
+            ToForm.groupByMonth(resultSet, screen);
         }else{
             ToForm.groupFree(resultSet, screen);
-
-            try {
-
-                while (resultSet.next()) {
-
-                    //if ((byMarket.isSelected()) && (resultSet.getString(2).equals(sm))) {
-
-
-                    String string = resultSet.getString(1);
-
-                    string += "\t\t";
-
-                    string += resultSet.getString(2);
-
-                    string += "\t\t";
-
-                    string += resultSet.getString(3);
-
-                    string += "\t\t";
-
-                    string += resultSet.getString(4);
-
-                    string += "\t\t";
-
-                    string += resultSet.getString(5);
-
-                    string += "\t\t";
-
-                    string += LocalDate.ofEpochDay(resultSet.getLong(6) / 86400);
-
-                    sumPrice += Double.parseDouble(resultSet.getString(5));
-
-                    screen.appendText(string + "\n");
-
-                }
-                //}
-
-                resultSet.beforeFirst();
-
-
-                screen.appendText("=============================================================================================" +
-
-                        "\n\t\t\t\t\t\t\t\t\t\tИтог:\t" + sumPrice + "\n");
-
-
-                sumPrice = .0;
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
 
         intervalStart.setValue(LocalDate.now());
